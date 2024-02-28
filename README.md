@@ -1,4 +1,4 @@
-<h2> 📚 REST API (POO) </h2>
+<h2 align="center"> 📚 CONCEITOS FUNDAMENTAIS REST API</h2>
 
 **API (Interface de Programação de Aplicações):**
 Uma API (Interface de Programação de Aplicações) é um conjunto de definições e protocolos que permitem a comunicação entre diferentes softwares. Ela define os métodos e formatos de dados que os desenvolvedores podem usar para interagir com um sistema ou serviço específico. As APIs são fundamentais para permitir a integração e a interoperabilidade entre diferentes sistemas, aplicativos e plataformas.
