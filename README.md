@@ -23,7 +23,7 @@ As Constraints de REST são os princípios que guiam o design de uma API RESTful
 
 Essas constraints ajudam a garantir que as APIs projetadas seguindo os princípios REST sejam flexíveis, escaláveis, confiáveis e fáceis de entender e usar.
 
-Claro! Aqui está um resumo sobre recursos REST:
+
 
 **Recursos REST:**
 
