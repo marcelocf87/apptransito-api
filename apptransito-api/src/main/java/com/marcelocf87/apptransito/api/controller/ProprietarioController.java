@@ -2,6 +2,7 @@ package com.marcelocf87.apptransito.api.controller;
 
 import com.marcelocf87.apptransito.domain.model.Proprietario;
 import com.marcelocf87.apptransito.domain.repository.ProprietarioRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class ProprietarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Proprietario adicionar(@RequestBody Proprietario proprietario) {
+    public Proprietario adicionar(@Valid @RequestBody Proprietario proprietario) {
         return proprietarioRepository.save(proprietario);
 
     }
