@@ -2,7 +2,9 @@ package com.marcelocf87.apptransito.api.controller;
 
 import com.marcelocf87.apptransito.domain.model.Proprietario;
 import com.marcelocf87.apptransito.domain.repository.ProprietarioRepository;
+import com.marcelocf87.apptransito.domain.service.RegistroProprietarioService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,16 +13,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/proprietarios")
 public class ProprietarioController {
 
-   @Autowired
-   private ProprietarioRepository proprietarioRepository;
+    private final RegistroProprietarioService registroProprietarioService;
+    private final ProprietarioRepository proprietarioRepository;
 
     @GetMapping
     public List<Proprietario> listar() {
-//        return proprietarioRepository.findByNomeContaining("Maria");
         return proprietarioRepository.findAll();
     }
 
@@ -34,7 +36,8 @@ public class ProprietarioController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Proprietario adicionar(@Valid @RequestBody Proprietario proprietario) {
-        return proprietarioRepository.save(proprietario);
+        return registroProprietarioService.salvar(proprietario);
+//        return proprietarioRepository.save(proprietario);
 
     }
 
@@ -46,7 +49,7 @@ public class ProprietarioController {
         }
 
         proprietario.setId(proprietarioId);
-        Proprietario proprietarioAtualizado = proprietarioRepository.save(proprietario);
+        Proprietario proprietarioAtualizado = registroProprietarioService.salvar(proprietario);
 
         return ResponseEntity.ok(proprietarioAtualizado);
 
@@ -58,7 +61,7 @@ public class ProprietarioController {
             return ResponseEntity.notFound().build();
         }
 
-        proprietarioRepository.deleteById(proprietarioId);
+        registroProprietarioService.excluir(proprietarioId);
         return ResponseEntity.noContent().build();
     }
 
