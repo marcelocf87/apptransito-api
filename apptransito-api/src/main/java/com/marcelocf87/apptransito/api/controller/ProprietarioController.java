@@ -1,5 +1,6 @@
 package com.marcelocf87.apptransito.api.controller;
 
+import com.marcelocf87.apptransito.domain.exception.NegocioException;
 import com.marcelocf87.apptransito.domain.model.Proprietario;
 import com.marcelocf87.apptransito.domain.repository.ProprietarioRepository;
 import com.marcelocf87.apptransito.domain.service.RegistroProprietarioService;
@@ -63,6 +64,12 @@ public class ProprietarioController {
 
         registroProprietarioService.excluir(proprietarioId);
         return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<String> capturar (NegocioException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+
     }
 
 }
