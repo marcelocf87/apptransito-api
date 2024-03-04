@@ -1,5 +1,6 @@
 package com.marcelocf87.apptransito.domain.service;
 
+import com.marcelocf87.apptransito.domain.exception.NegocioException;
 import com.marcelocf87.apptransito.domain.model.Proprietario;
 import com.marcelocf87.apptransito.domain.repository.ProprietarioRepository;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,12 @@ public class RegistroProprietarioService {
 
     @Transactional
     public Proprietario salvar(Proprietario proprietario) {
+        boolean emailEmUso = proprietarioRepository.findByEmail(proprietario.getEmail()).filter(p -> !p.equals(proprietario)).isPresent();
+
+        if (emailEmUso) {
+            throw  new NegocioException("Já existe um proprietário cadastrado com este email");
+        }
+
         return proprietarioRepository.save(proprietario);
     }
 
