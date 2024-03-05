@@ -1,5 +1,6 @@
 package com.marcelocf87.apptransito.api.controller;
 
+import com.marcelocf87.apptransito.domain.exception.NegocioException;
 import com.marcelocf87.apptransito.domain.model.Veiculo;
 import com.marcelocf87.apptransito.domain.repository.VeiculoRepository;
 import com.marcelocf87.apptransito.domain.service.RegistroVeiculoService;
@@ -33,5 +34,11 @@ public class VeiculoController {
     public Veiculo cadastrar(@RequestBody Veiculo veiculo) {
         return registroVeiculoService.cadastrar(veiculo);
     }
+
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<String> capturar (NegocioException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
 
 }
