@@ -34,12 +34,7 @@ public class VeiculoController {
     @ResponseStatus(HttpStatus.CREATED)
     public Veiculo cadastrar(@Valid @RequestBody Veiculo veiculo) {
         return registroVeiculoService.cadastrar(veiculo);
-    }
 
-    @ExceptionHandler(NegocioException.class)
-    public ResponseEntity<String> capturar (NegocioException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
     }
-
 
 }
