@@ -35,7 +35,7 @@ public class VeiculoController {
                     veiculoModel.setNomeProprietario(veiculo.getProprietario().getNome());
                     veiculoModel.setMarca(veiculo.getMarca());
                     veiculoModel.setModelo(veiculo.getModelo());
-                    veiculoModel.setNumeroPlaca(veiculo.getPlaca());
+                    veiculoModel.setPlaca(veiculo.getPlaca());
                     veiculoModel.setStatus(veiculo.getStatus());
                     veiculoModel.setDataCadastro(veiculo.getDataCadastro());
                     veiculoModel.setDataApreensao(veiculo.getDataApreensao());
