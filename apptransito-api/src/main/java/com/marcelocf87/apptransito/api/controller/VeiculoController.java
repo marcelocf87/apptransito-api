@@ -1,5 +1,6 @@
 package com.marcelocf87.apptransito.api.controller;
 
+import com.marcelocf87.apptransito.api.model.VeiculoModel;
 import com.marcelocf87.apptransito.domain.exception.NegocioException;
 import com.marcelocf87.apptransito.domain.model.Veiculo;
 import com.marcelocf87.apptransito.domain.repository.VeiculoRepository;
@@ -26,8 +27,22 @@ public class VeiculoController {
     }
 
     @GetMapping("/{veiculoId}")
-    public ResponseEntity<Veiculo> buscar(@PathVariable Long veiculoId) {
-        return veiculoRepository.findById(veiculoId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<VeiculoModel> buscar(@PathVariable Long veiculoId) {
+        return veiculoRepository.findById(veiculoId)
+                .map(veiculo -> {
+                    var veiculoModel = new VeiculoModel();
+                    veiculoModel.setId(veiculo.getId());
+                    veiculoModel.setNomeProprietario(veiculo.getProprietario().getNome());
+                    veiculoModel.setMarca(veiculo.getMarca());
+                    veiculoModel.setModelo(veiculo.getModelo());
+                    veiculoModel.setNumeroPlaca(veiculo.getPlaca());
+                    veiculoModel.setStatus(veiculo.getStatus());
+                    veiculoModel.setDataCadastro(veiculo.getDataCadastro());
+                    veiculoModel.setDataApreensao(veiculo.getDataApreensao());
+                    return veiculoModel;
+                })
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
