@@ -1,6 +1,9 @@
 package com.marcelocf87.apptransito.api.exceptionhandler;
 
 import com.marcelocf87.apptransito.domain.exception.NegocioException;
+import lombok.AllArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
@@ -12,14 +15,18 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.LocaleContextResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.net.URI;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @RestControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+    private final MessageSource messageSource;
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -33,7 +40,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         Map<String, String> fields = ex.getBindingResult().getAllErrors()
                 .stream()
                 .collect(Collectors.toMap(objectError -> ((FieldError) objectError).getField(),
-                        DefaultMessageSourceResolvable::getDefaultMessage));
+                        objectError -> messageSource.getMessage(objectError, LocaleContextHolder.getLocale())));
 
         problemDetail.setProperty("fields", fields);
 
