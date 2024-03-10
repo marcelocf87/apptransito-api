@@ -1,7 +1,6 @@
 package com.marcelocf87.apptransito.api.controller;
 
 import com.marcelocf87.apptransito.api.model.VeiculoModel;
-import com.marcelocf87.apptransito.domain.exception.NegocioException;
 import com.marcelocf87.apptransito.domain.model.Veiculo;
 import com.marcelocf87.apptransito.domain.repository.VeiculoRepository;
 import com.marcelocf87.apptransito.domain.service.RegistroVeiculoService;
