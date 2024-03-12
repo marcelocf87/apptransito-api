@@ -2,6 +2,7 @@ package com.marcelocf87.apptransito.api.controller;
 
 import com.marcelocf87.apptransito.api.assembler.VeiculoAssembler;
 import com.marcelocf87.apptransito.api.model.VeiculoModel;
+import com.marcelocf87.apptransito.api.model.input.VeiculoInput;
 import com.marcelocf87.apptransito.domain.model.Veiculo;
 import com.marcelocf87.apptransito.domain.repository.VeiculoRepository;
 import com.marcelocf87.apptransito.domain.service.RegistroVeiculoService;
@@ -37,8 +38,11 @@ public class VeiculoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public VeiculoModel cadastrar(@Valid @RequestBody Veiculo veiculo) {
-        return veiculoAssembler.toModel(registroVeiculoService.cadastrar(veiculo));
+    public VeiculoModel cadastrar(@Valid @RequestBody VeiculoInput veiculoInput) {
+        Veiculo novoVeiculo = veiculoAssembler.toEntity(veiculoInput);
+        Veiculo veiculoCadastrado = registroVeiculoService.cadastrar(novoVeiculo);
+
+        return veiculoAssembler.toModel(veiculoCadastrado);
 
     }
 
