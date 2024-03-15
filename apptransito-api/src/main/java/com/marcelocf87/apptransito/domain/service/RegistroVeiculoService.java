@@ -1,5 +1,6 @@
 package com.marcelocf87.apptransito.domain.service;
 
+import com.marcelocf87.apptransito.domain.exception.EntidadeNaoEncontradaException;
 import com.marcelocf87.apptransito.domain.exception.NegocioException;
 import com.marcelocf87.apptransito.domain.model.Proprietario;
 import com.marcelocf87.apptransito.domain.model.StatusVeiculo;
@@ -21,7 +22,7 @@ public class RegistroVeiculoService {
     private final RegistroProprietarioService registroProprietarioService;
 
     public Veiculo buscar(Long veiculoId) {
-        return veiculoRepository.findById(veiculoId).orElseThrow(() -> new NegocioException("Veículo não encontrado"));
+        return veiculoRepository.findById(veiculoId).orElseThrow(() -> new EntidadeNaoEncontradaException("Veículo não encontrado"));
     }
 
     @Transactional

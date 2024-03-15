@@ -1,5 +1,6 @@
 package com.marcelocf87.apptransito.api.exceptionhandler;
 
+import com.marcelocf87.apptransito.domain.exception.EntidadeNaoEncontradaException;
 import com.marcelocf87.apptransito.domain.exception.NegocioException;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -50,6 +51,15 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         problemDetail.setTitle(e.getMessage());
         problemDetail.setType(URI.create("https://apptransito.com/erros/campos-invalidos"));
+
+        return problemDetail;
+    }
+
+    @ExceptionHandler(EntidadeNaoEncontradaException.class)
+    public ProblemDetail handleEntidadeNaoEncontrada(NegocioException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle(e.getMessage());
+        problemDetail.setType(URI.create("https://apptransito.com/erros/nao-encontrado"));
 
         return problemDetail;
     }
